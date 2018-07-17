@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { _1_fetch_BoxData_store } from '../../../store/store';
 import { Link } from 'react-router-dom'
+import { url } from '../../../variables/general'
 
 class Box_1 extends Component {
     componentDidMount(){
@@ -18,13 +19,12 @@ class Box_1 extends Component {
             <ul class="clearfix">
                 {items.map((prop, key) => (
                 <li key = {key}>
-                    <Link to={`/tin-tuc/${prop.metaKey}`}><img class="entry-thumbnail" src={prop.images[0].image} salt=""/></Link>   
+                    <Link to={`/tin-tuc/${prop.metaKey}`}><img class="entry-thumbnail" src={url+prop.images[0].image} salt=""/></Link>   
                     
                     <h2 class="entry-title"><Link to = {`/tin-tuc/${prop.metaKey}`}>{prop.title}</Link></h2>
                     
                     <div class="entry-meta">
                         <span class="entry-date">{prop.date}</span>
-                        <span class="entry-comments"><a href="post.html#comments">3 Comments</a></span>                    
                     </div>                  
                    
                     <div class="entry-summary">

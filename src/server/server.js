@@ -8,7 +8,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import {SSRRoutes} from "../routers/routes";
 import Helmet from "react-helmet";
 
-import createStore, { initializeSession } from "../store/store";
+import createStore, { initializeSession, storeIndexPageMainCategory, storeKeyCategory, storeMetaKey } from "../store/store";
 import Home from "../layouts/Home";
 import Detail from "../layouts/Detail";
 import Category from "../layouts/Category";
@@ -20,6 +20,7 @@ app.use(express.static("public"))
 
 app.get( "/", ( req, res ) => {
     const context = { };
+    console.log(req.url)
     const store = createStore( );
     
     store.dispatch( initializeSession( ) );
@@ -31,7 +32,7 @@ app.get( "/", ( req, res ) => {
             .filter( comp => comp.serverFetch ) // check if components have data requirement
             .map( comp => store.dispatch( comp.serverFetch( ) ) ); // dispatch data requirement
         
-        Promise.all( dataRequirements ).then( ( ) => {
+        Promise.all( dataRequirements ).then( (data) => {
             const jsx = (
                 <ReduxProvider store={ store }>
                     <StaticRouter context={ context } location={ req.url }>
@@ -51,14 +52,16 @@ app.get( "/", ( req, res ) => {
 app.get( "/tin-tuc/:metaKey", ( req, res ) => {
     const context = { };
     const store = createStore( );
+    const metaKey = req.params.metaKey;
     store.dispatch( initializeSession( ) );
+    store.dispatch( storeMetaKey( metaKey ) );
 
     const dataRequirements =
         SSRRoutes
             .filter( route => matchPath( req.url, route ) ) // filter matching paths
             .map( route => route.component ) // map to components
             .filter( comp => comp.serverFetch ) // check if components have data requirement
-            .map( comp => store.dispatch( comp.serverFetch( ) ) ); // dispatch data requirement
+            .map( comp => store.dispatch( comp.serverFetch( metaKey ) ) ); // dispatch data requirement
         
         Promise.all( dataRequirements ).then( ( ) => {
             const jsx = (
@@ -80,17 +83,54 @@ app.get( "/tin-tuc/:metaKey", ( req, res ) => {
 app.get( "/loai-tin-tuc/:keyCategory", ( req, res ) => {
     const context = { };
     const store = createStore( );
+    const keyCategory = req.params.keyCategory;
 
     store.dispatch( initializeSession( ) );
+    store.dispatch( storeIndexPageMainCategory( 1 ) );
+    store.dispatch( storeKeyCategory( keyCategory ) );
 
     const dataRequirements =
         SSRRoutes
             .filter( route => matchPath( req.url, route ) ) // filter matching paths
             .map( route => route.component ) // map to components
             .filter( comp => comp.serverFetch ) // check if components have data requirement
-            .map( comp => store.dispatch( comp.serverFetch( ) ) ); // dispatch data requirement
+            .map( comp => store.dispatch( comp.serverFetch( keyCategory, 1 ) ) ); // dispatch data requirement
         
-        Promise.all( dataRequirements ).then( ( ) => {
+        Promise.all( dataRequirements ).then( (data) => {
+            const jsx = (
+                <ReduxProvider store={ store }>
+                    <StaticRouter context={ context } location={ req.url }>
+                        <Category/>
+                    </StaticRouter>
+                </ReduxProvider>
+            );
+        const reactDom = renderToString( jsx );
+        const reduxState = store.getState( );
+        const helmetData = Helmet.renderStatic( );
+
+        res.writeHead( 200, { "Content-Type": "text/html" } );
+        res.end( htmlTemplate( reactDom, reduxState, helmetData ) );
+    } );
+} );
+
+app.get( "/loai-tin-tuc/:keyCategory/:indexPage", ( req, res ) => {
+    const context = { };
+    const store = createStore( );
+    const indexPage = Number(req.params.indexPage);
+    const keyCategory = req.params.keyCategory;
+
+    store.dispatch( initializeSession( ) );
+    store.dispatch( storeIndexPageMainCategory( indexPage ) );
+    store.dispatch( storeKeyCategory( keyCategory ) );
+
+    const dataRequirements =
+        SSRRoutes
+            .filter( route => matchPath( req.url, route ) ) // filter matching paths
+            .map( route => route.component ) // map to components
+            .filter( comp => comp.serverFetch ) // check if components have data requirement
+            .map( comp => store.dispatch( comp.serverFetch( keyCategory, indexPage ) ) ); // dispatch data requirement
+        
+        Promise.all( dataRequirements ).then( (data) => {
             const jsx = (
                 <ReduxProvider store={ store }>
                     <StaticRouter context={ context } location={ req.url }>
@@ -131,7 +171,7 @@ function htmlTemplate( reactDom, reduxState, helmetData ) {
             <script>
                 window.REDUX_DATA = ${ JSON.stringify( reduxState ) }
             </script>
-            <script src="./app.bundle.js"></script>
+            <script src="/app.bundle.js"></script>
         </body>
 
         <script type="text/javascript" src="/js/hoverIntent.js"></script>

@@ -13,6 +13,10 @@ import Box_5 from "../components/common/items/Box_5";
 import Box_6 from "../components/common/items/Box_6";
 import Box_7 from "../components/common/items/Box_7";
 import Box_Videos from "../components/common/items/Box_Videos";
+import FeaturedContent from "../components/common/itemsCategory/FeaturedContent";
+import CategoryBox from "../components/common/itemsCategory/CategoryBox";
+import MainCategory from "../views/MainCategory";
+import HentryPost from "../components/common/itemsDetail.js/HentryPost";
 
 // route để điều hướng load SSR
 const SSRRoutes = [
@@ -80,6 +84,84 @@ const SSRRoutes = [
         path: "/",
         name: "Box Videos",
         component: Box_Videos,
+        exact: true
+    },
+    {
+        path: "/tin-tuc/:metaKey",
+        name: "Category Tab",
+        component: CategoryTab,
+        exact: true
+    },
+    {
+        path: "/tin-tuc/:metaKey",
+        name: "Latest News",
+        component: LatestNews,
+        exact: true
+    },
+    {
+        path: "/tin-tuc/:metaKey",
+        name: "Hentry Post",
+        component: HentryPost,
+        exact: true
+    },
+    {
+        path: "/loai-tin-tuc/:keyCategory",
+        name: "Main Category",
+        component: MainCategory,
+        exact: true
+    },
+    {
+        path: "/loai-tin-tuc/:keyCategory",
+        name: "Category Tab",
+        component: CategoryTab,
+        exact: true
+    },
+    {
+        path: "/loai-tin-tuc/:keyCategory",
+        name: "Latest News",
+        component: LatestNews,
+        exact: true
+    },
+    {
+        path: "/loai-tin-tuc/:keyCategory",
+        name: "Featured Content",
+        component: FeaturedContent,
+        exact: true
+    },
+    {
+        path: "/loai-tin-tuc/:keyCategory",
+        name: "Category Box",
+        component: CategoryBox,
+        exact: true
+    },
+    {
+        path: "/loai-tin-tuc/:keyCategory/:indexPage",
+        name: "Main Category",
+        component: MainCategory,
+        exact: true
+    },
+    {
+        path: "/loai-tin-tuc/:keyCategory/:indexPage",
+        name: "Category Tab",
+        component: CategoryTab,
+        exact: true
+    },
+    {
+        path: "/loai-tin-tuc/:keyCategory/:indexPage",
+        name: "Latest News",
+        component: LatestNews,
+        exact: true
+    },
+    {
+        path: "/loai-tin-tuc/:keyCategory/:indexPage",
+        name: "Featured Content",
+        component: FeaturedContent,
+        exact: true
+    },
+    {
+        path: "/loai-tin-tuc/:keyCategory/:indexPage",
+        name: "Category Box",
+        component: CategoryBox,
         exact: true
     }
 ];

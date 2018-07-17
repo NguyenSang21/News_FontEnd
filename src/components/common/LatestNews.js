@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchLatestNewsData } from '../../store/store'
 import { Link } from 'react-router-dom'
+import { url } from '../../variables/general'
  class LatestNews extends Component {
     componentDidMount(){
         if(this.props.items.lenght <= 0){
@@ -16,7 +17,7 @@ import { Link } from 'react-router-dom'
                 <ul>
                     {items.map((prop, key) => (
                         <li key = {key}>
-                            <Link to={`/tin-tuc/${prop.metaKey}`}><img class="entry-thumbnail" style={{width: 160, height:90}} src={prop.images[0].image} alt="Post Title"/></Link>
+                            <Link to={`/tin-tuc/${prop.metaKey}`}><img class="entry-thumbnail" style={{width: 160, height:90}} src={url+prop.images[0].image} alt="Post Title"/></Link>
                             <h2 class="entry-title"><Link to= {`/tin-tuc/${prop.metaKey}`}>{prop.title}</Link></h2>
                             <div class="entry-meta">
                                 <span class="entry-date">{prop.date}</span>

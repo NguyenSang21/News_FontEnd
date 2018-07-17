@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { _2_fetch_BoxData_store } from '../../../store/store';
 import { Link } from 'react-router-dom';
+import { url } from '../../../variables/general'
+
 
 class Box_2 extends Component {
 
@@ -18,16 +20,15 @@ class Box_2 extends Component {
 					<h3 class="section-title"><a href="category.html">Reviews</a> <span class="see-all"><a href="category.html">More</a></span></h3>
 					<ul>
             {items.map((prop, key) => {
-              if(key == 0){
+              if(key === 0){
                 return(
                   <li class="article-first">
-                    <Link to={`/tin-tuc/${prop.metaKey}`}><img class="entry-thumbnail" style={{width:344,height:193}} src={prop.images[0].image} alt=""/></Link>
+                    <Link to={`/tin-tuc/${prop.metaKey}`}><img class="entry-thumbnail" style={{width:344,height:193}} src={url+prop.images[0].image} alt=""/></Link>
                     <h2 class="entry-title"><Link to={`/tin-tuc/${prop.metaKey}`}>{prop.title}</Link></h2>
 
                     <div class="entry-meta">
                       <span class="entry-stars"></span>				
                       <span class="entry-date">{prop.date}</span>
-                            <span class="entry-comments"><a href="post_reviews.html#comments">3 Comments</a></span>
                     </div>
 
                     <div class="entry-summary">
@@ -35,7 +36,7 @@ class Box_2 extends Component {
                     </div>
                         
                         <div class="more-link">
-                            <a href="post_reviews.html">Read the rest of this entry</a>
+                            <Link to={`/tin-tuc/${prop.metaKey}`}>Đọc phần còn lại</Link>
                         </div>
                   </li>
                 );
@@ -43,14 +44,13 @@ class Box_2 extends Component {
                 return(
                   <li class="article-list">
 
-                    <Link to = {`/tin-tuc/${prop.metaKey}`}><img class="entry-thumbnail" style={{width:52,height:52}} src={prop.images[0].image} alt=""/></Link>
+                    <Link to = {`/tin-tuc/${prop.metaKey}`}><img class="entry-thumbnail" style={{width:52,height:52}} src={url+prop.images[0].image} alt=""/></Link>
       
                     <h2 class="entry-title"><Link to = {`/tin-tuc/${prop.metaKey}`}>{prop.title}</Link></h2>
       
                     <div class="entry-meta">
                       <span class="entry-stars"></span>				
                       <span class="entry-date">{prop.date}</span>
-                            <span class="entry-comments"><a href="post_reviews.html#comments">3 Comments</a></span>		
                     </div>
                   </li>
                 )

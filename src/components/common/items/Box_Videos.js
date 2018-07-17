@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {_videos_fetch_BoxData_store} from '../../../store/store'
 import { Link } from 'react-router-dom';
+import { url } from '../../../variables/general'
+
 
 class Box_Videos extends Component {
     componentDidMount(){
@@ -12,7 +14,6 @@ class Box_Videos extends Component {
 
     render() {
         const {items} = this.props;
-        console.log("asdas");
         return (
             <section id="carousel-1" class="carousel-loop container clearfix">
 
@@ -24,7 +25,7 @@ class Box_Videos extends Component {
                         <li>
                             <article class="hentry post">
                                 <Link class="video-thumbnail" to={`/tin-tuc/${item.metaKey}`} rel="bookmark">
-                                    <img class="entry-thumbnail" src={item.videos[0].imgVideo} alt="Post Title" />
+                                    <img class="entry-thumbnail" src={url+item.images[0].image} alt="Post Title" />
                                     <div class="video-icon"><i class="fa fa-play"></i></div>
                                 </Link>							
                                 <h2 class="entry-title"><Link to={`/tin-tuc/${item.metaKey}`} rel="bookmark">{item.title}</Link></h2>

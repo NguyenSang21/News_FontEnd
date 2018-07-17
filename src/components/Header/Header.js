@@ -13,7 +13,7 @@ class Header extends Component {
             <meta name="description" content="This is a proof of concept for React SSR" />
           </Helmet>
         <div id="logo">
-          <a href="/"><img src="images/logo.png" alt="Logo Title" /></a>
+          <a href="/"><img src="/images/logo.png" alt="Logo Title" /></a>
         </div>
   
         <div class="header-ad">

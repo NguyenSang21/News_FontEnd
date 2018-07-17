@@ -14,10 +14,49 @@ import { _5_fetch_BoxData_api } from "../api/api";
 import { _6_fetch_BoxData_api } from "../api/api";
 import { _7_fetch_BoxData_api } from "../api/api";
 import { _videos_fetch_BoxData_api } from "../api/api";
+import { _fetch_Featured_Content_api } from "../api/api";
+import { _fetch_Category_Box_api } from "../api/api";
+import { _fetch_Main_Category_api } from "../api/api";
+import { _fetch_Hentry_Post_api } from "../api/api";
 /////////////// TẠO ACTION ///////////////////////////////////////////////
 export const initializeSession = ( ) => ( {
     type: "INITIALIZE_SESSION",
 } );
+
+export const storeIndexPageMainCategory = ( data ) => ({
+    type: "STORE_INDEX_PAGE_MAIN_CATEGORY_DATA",
+    data,
+});
+
+export const storeMetaKey = ( data ) => ({
+    type: "STORE_META_KEY_DATA",
+    data,
+});
+
+export const storeKeyCategory = ( data ) => ({
+    type: "STORE_KEY_CATEGORY_DATA",
+    data,
+});
+
+const storeMainCategoryData = ( data ) => ({
+    type: "STORE_MAIN_CATEGORY_DATA",
+    data,
+});
+
+const storeHentryPostyData = ( data ) => ({
+    type: "STORE_HENTRY_POST_DATA",
+    data,
+});
+
+const storeFeaturedContentData = ( data ) => ({
+    type: "STORE_FEATURED_CONTENT_DATA",
+    data,
+});
+
+const storeCategoryBoxData = ( data ) => ({
+    type: "STORE_CATEGORY_BOX_DATA",
+    data,
+});
 
 const storeCategoryTabData = ( data ) => ( {
     type: "STORE_CATEGORY_TAB_DATA",
@@ -81,12 +120,28 @@ export const fetchCategoryTabData = () => ( dispatch ) =>
                                                                
 //Lấy dữ liệu Carousel                               
 export const fetchCarouselData = () => ( dispatch ) =>                               
-    fetchCSData().then( res => dispatch( storeCarouselData( res ) ) );                
+    fetchCSData( ).then( res => dispatch( storeCarouselData( res ) ) );                
                                                                                      
 // Lấy dữ liệu Latest News
 export const fetchLatestNewsData = () => (dispatch) =>
-    fetchLNData().then( res => dispatch( storeLatestNewsData( res ) ) )
+    fetchLNData( ).then( res => dispatch( storeLatestNewsData( res ) ) )
     
+
+// Lấy dữ liệu của Featured Content
+export const fetchFeaturedContentData = (keyCategory) => (dispatch) =>
+    _fetch_Featured_Content_api(keyCategory).then( res => dispatch( storeFeaturedContentData( res ) ) )
+
+// Lấy dữ liệu của Category Box
+export const fetchCategoryBoxData = (keyCategory, page) => (dispatch) =>
+    _fetch_Category_Box_api(keyCategory, page).then( res => dispatch( storeCategoryBoxData( res ) ) )
+
+// Lấy dữ liệu của Main Category
+export const fetchMainCategoryData = (keyCategory) => (dispatch) =>
+    _fetch_Main_Category_api(keyCategory).then( res => dispatch( storeMainCategoryData( res ) ) )
+
+// Lấy dữ liệu của Hentry Post
+export const fetchHentryPostData = (metaKey) => (dispatch) =>
+    _fetch_Hentry_Post_api(metaKey).then( res => dispatch( storeHentryPostyData( res ) ) )
 
 
 // Pure function Lấy dữ liệu Box 1 
@@ -153,6 +208,62 @@ const carouselDataReducer = ( state = [ ], action ) => {
 const latestNewsReducer = ( state = [ ], action ) => {
     switch ( action.type ) {
         case "STORE_LATEST_NEWS":
+            return action.data;
+        default: return state;
+    }
+}
+
+const featuredContentReducer = ( state = [ ], action ) => {
+    switch ( action.type ) {
+        case "STORE_FEATURED_CONTENT_DATA":
+            return action.data;
+        default: return state;
+    }
+}
+
+const categoryBoxReducer = ( state = [ ], action ) => {
+    switch ( action.type ) {
+        case "STORE_CATEGORY_BOX_DATA":
+            return action.data;
+        default: return state;
+    }
+}
+
+const mainCategoryReducer = ( state = [ ], action ) => {
+    switch ( action.type ) {
+        case "STORE_MAIN_CATEGORY_DATA":
+            return action.data;
+        default: return state;
+    }
+}
+
+const indexPageMainCategoryReducer = ( state = [ ], action ) => {
+    switch ( action.type ) {
+        case "STORE_INDEX_PAGE_MAIN_CATEGORY_DATA":
+            return action.data;
+        default: return state;
+    }
+}
+
+const keyCategoryReducer = ( state = [ ], action ) => {
+    switch ( action.type ) {
+        case "STORE_KEY_CATEGORY_DATA":
+            return action.data;
+        default: return state;
+    }
+}
+
+const metaKeyReducer = ( state = [ ], action ) => {
+    switch ( action.type ) {
+        case "STORE_META_KEY_DATA":
+            return action.data;
+        default: return state;
+    }
+}
+
+const hentryPostReducer = ( state = [ ], action ) => {
+    switch ( action.type ) {
+        case "STORE_HENTRY_POST_DATA":
             return action.data;
         default: return state;
     }
@@ -234,7 +345,14 @@ const reducer = combineReducers( {
     _5_BoxData: _5_BoxReducer,
     _6_BoxData: _6_BoxReducer,
     _7_BoxData: _7_BoxReducer,
-    _videos_BoxData: _videos_BoxReducer
+    _videos_BoxData: _videos_BoxReducer,
+    featuredContentData: featuredContentReducer,
+    categoryBoxData: categoryBoxReducer,
+    mainCategoryData: mainCategoryReducer,
+    indexPageMainCategory: indexPageMainCategoryReducer,
+    keyCategory: keyCategoryReducer,
+    metaKey: metaKeyReducer,
+    hentryPostData: hentryPostReducer
 } );                                                                                 
                                                                                      
 ////////////////////////////////////////////////////////////////////////////////////////
