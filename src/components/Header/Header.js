@@ -5,7 +5,7 @@ import Helmet from "react-helmet";
 class Header extends Component {
   render() {
     return (
-        <header id="masthead" class="site-header container clearfix" role="banner">
+        <header id="masthead" className="site-header container clearfix" role="banner">
           <Helmet>
             <title>Contact Page</title>
             <meta name="description" content="This is a proof of concept for React SSR" />
@@ -16,23 +16,23 @@ class Header extends Component {
           <a href="/"><img src="/images/logo.png" alt="Logo Title" /></a>
         </div>
   
-        <div class="header-ad">
+        <div className="header-ad">
           <a href="#"><img src="http://placehold.it/728x90" alt=""/></a>
         </div>
   
-        <div class="clearfix"></div>
+        <div className="clearfix"></div>
   
   
-        <div id="secondary-bar" class="clearfix">
+        <div id="secondary-bar" className="clearfix">
   
-          <a id="secondary-mobile-menu" href="#"><i class="fa fa-bars"></i> <span>Secondary Menu</span></a>
+          <a id="secondary-mobile-menu" href="#"><i className="fa fa-bars"></i> <span>Secondary Menu</span></a>
               <CategoryTab/>
-              <div class="header-search">
+              <div className="header-search">
   
-                <i class="fa fa-search"></i>
-                <i class="fa fa-times"></i>
+                <i className="fa fa-search"></i>
+                <i className="fa fa-times"></i>
 
-              <div class="search-form">
+              <div className="search-form">
 
               <form action="search.html" id="searchform" method="get">
                 <input name="s" type="text" />

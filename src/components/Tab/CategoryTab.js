@@ -15,12 +15,12 @@ class CategoryTab extends Component {
     const {circuits} = this.props;
     return (
         <nav id="secondary-nav">
-            <ul id="secondary-menu" class="sf-menu">
-                <li class="home_item current_item"><a href="/"><i class="fa fa-home"></i> Home</a></li>
+            <ul id="secondary-menu" className="sf-menu">
+                <li className="home_item current_item"><a href="/"><i className="fa fa-home"></i> Home</a></li>
                 {circuits.map(item =>(
                 <li>
                     <a href="#" style={{'font-size':11}}>{item.title}</a>
-                    <ol class="sf-mega links">
+                    <ol className="sf-mega links">
                         <li>
                             <ol>
                                 {item.items.map(title => (

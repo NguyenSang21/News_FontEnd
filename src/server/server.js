@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+var http = require('http');
 
 import React from "react";
 import { renderToString } from "react-dom/server";
@@ -15,12 +16,11 @@ import Category from "../layouts/Category";
 
 const app = express();
 
-app.use( express.static( path.resolve( __dirname, "../dist" ) ) );
+app.use( express.static( path.resolve( __dirname, "../../dist" ) ) );
 app.use(express.static("public"))
 
 app.get( "/", ( req, res ) => {
     const context = { };
-    console.log(req.url)
     const store = createStore( );
     
     store.dispatch( initializeSession( ) );
@@ -172,14 +172,19 @@ function htmlTemplate( reactDom, reduxState, helmetData ) {
                 window.REDUX_DATA = ${ JSON.stringify( reduxState ) }
             </script>
             <script src="/app.bundle.js"></script>
+            
+            <script type="text/javascript" src="/js/jquery.js"></script> 
+            <script type="text/javascript" src="/js/jquery-ui.min.js"></script> 
+            <script type="text/javascript" src="/js/jquery.matchHeight.js"></script>	
+            <script type="text/javascript" src="/js/hoverIntent.js"></script> 
+            <script type="text/javascript" src="/js/superfish.js"></script>	
+            <script type="text/javascript" src="/js/jquery.jcarousel.min.js"></script> 
+            <script type="text/javascript" src="/js/jquery.sidr.min.js"></script> 
+            <script type="text/javascript" src="/js/retina.js"></script> 
+            <script type="text/javascript" src="/js/jquery.sticky.js"></script> 
+            <script type='text/javascript' src='/js/jquery.prettyPhoto.js'></script> 
+            <script type="text/javascript" src="/js/jquery.custom.js"></script>
         </body>
-
-        <script type="text/javascript" src="/js/hoverIntent.js"></script>
-        <script type="text/javascript" src="/js/superfish.js"></script>	
-        
-        <script type="text/javascript" src="/js/retina.js"></script>
-        
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         </html>
     `;
 }

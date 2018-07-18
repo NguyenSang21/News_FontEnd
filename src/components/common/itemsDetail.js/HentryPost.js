@@ -27,11 +27,7 @@ class HentryPost extends Component {
                             <span class="entry-tags"><i class="fa fa-tags"></i> <a href="#">Lorem</a>, <a href="#">ipsum</a></span>						
                         </div>
             
-                        <img class="entry-thumbnail" src={url+prop.images[0].image} alt="" />
-            
-                        <div class="entry-content">
-            
-                            {prop.detail}
+                        <div class="entry-content" dangerouslySetInnerHTML={{__html: prop.detail}}>
                                                                                 
                         </div>
                     </div>

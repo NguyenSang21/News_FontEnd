@@ -17,7 +17,7 @@ class FeaturedContent extends Component {
     let items = this.props.items;
     return (
         <div id="featured-content-2" class="category-box clearfix">
-            <h3 class="section-title"><strong>Featured News</strong><span class="see-all"><a href="category.html">More</a></span></h3>
+            <h3 class="section-title"><strong>Tin tức hay nhất</strong></h3>
                 {
                     items.map((prop, key) => {
                         if(key === 0){

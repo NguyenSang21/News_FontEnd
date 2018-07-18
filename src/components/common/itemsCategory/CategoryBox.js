@@ -28,8 +28,11 @@ class CategoryBox extends Component {
         return page;
     }
   render() {
-    let { items, mainCategoryData, keyCategory } = this.props;
-    let page = this.getNumberPage(this.props.indexPage, Math.ceil(mainCategoryData.length/quantity));
+    let { items, mainCategoryData, keyCategory, indexPage } = this.props;
+    let numberPage = Math.ceil(mainCategoryData.length/quantity);
+    let page = this.getNumberPage(indexPage, numberPage);
+    let indexNext = (indexPage+1) > numberPage ? numberPage : (indexPage+1);
+    let indexPrev = (indexPage-1) < 1 ? 1 : (indexPage-1);
     return (
         <div id="content" class="content-loop list category-box">
 
@@ -56,13 +59,15 @@ class CategoryBox extends Component {
             }                                                                          
 
             <nav class="pagination">                
-                <a class="page-numbers prev" href="#">{"<<"}</a>                  
+                <Link class="page-numbers prev" to={`loai-tin-tuc/${keyCategory}/${1}`}>{"<<"}</Link>         
+                <Link class="page-numbers prev" to={`/loai-tin-tuc/${keyCategory}/${indexPrev}`}>{"<"}</Link>                           
                 {
                     page.map((prop, key) => (
-                        <a class={prop.class} href={`/loai-tin-tuc/${keyCategory}/${prop.page}`}>{prop.page}</a>
+                        <Link class={prop.class} to={`/loai-tin-tuc/${keyCategory}/${prop.page}`}>{prop.page}</Link>
                     ))
                 }
-                <a class="page-numbers next" href="#">{">>"}</a>                  
+                <Link class="page-numbers next" to={`/loai-tin-tuc/${keyCategory}/${indexNext}`}>{">"}</Link>                  
+                <Link class="page-numbers next" to={`loai-tin-tuc/${keyCategory}/${numberPage}`}>{">>"}</Link>                  
             </nav>                 
 
         </div>

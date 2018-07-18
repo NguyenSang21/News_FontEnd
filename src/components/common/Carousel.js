@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { fetchCarouselData } from '../../store/store'
-import { Link } from 'react-router-dom'
-import { url } from '../../variables/general'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { fetchCarouselData } from '../../store/store';
+import { Link } from 'react-router-dom';
+import { url } from '../../variables/general';
+
 class Carousel extends Component {
     componentDidMount(){
         if(this.props.circuits.lenght <= 0)
